@@ -2,20 +2,26 @@ import React from "react";
 
 import "./TaskFilter.css";
 
-function TaskFilter() {
-  return (
-    <ul className="filters">
-      <li>
-        <button className="selected">All</button>
-      </li>
-      <li>
-        <button>Active</button>
-      </li>
-      <li>
-        <button>Completed</button>
-      </li>
-    </ul>
-  );
-}
+export default class TaskFilter extends React.Component {
+  state = {
+    selected: false,
+  };
 
-export default TaskFilter;
+  handleItemClick = (event) => {};
+
+  render() {
+    return (
+      <ul className="filters" onClick={this.handleItemClick}>
+        <li>
+          <button className="selected">All</button>
+        </li>
+        <li>
+          <button>Active</button>
+        </li>
+        <li>
+          <button>Completed</button>
+        </li>
+      </ul>
+    );
+  }
+}
