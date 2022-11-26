@@ -28,11 +28,11 @@ export default class Main extends React.Component {
   };
 
   render() {
-    let { todoData, deleteItem } = this.state;
+    let { todoData } = this.state;
 
     return (
       <section className="main">
-        <TaskList listTodos={todoData} onDeleted={deleteItem} />
+        <TaskList listTodos={todoData} onDeleted={this.deleteItem} />
         <Footer  />
       </section>
     );
