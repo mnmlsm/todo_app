@@ -6,7 +6,7 @@ import Task from "../Task/Task";
 
 export default class TaskList extends React.Component {
   render() {
-    const { listTodos, onDeleted } = this.props;
+    const { listTodos, onDeleted, onToggleDone } = this.props;
     const tasks = listTodos.map((task) => {
       return (
         <Task
@@ -15,6 +15,10 @@ export default class TaskList extends React.Component {
           onDeleted={() => {
             onDeleted(task.id);
           }}
+          onToggleDone={() => {
+            onToggleDone(task.id);
+          }}
+          done={task.done}
         />
       );
     });

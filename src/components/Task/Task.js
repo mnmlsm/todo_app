@@ -3,22 +3,8 @@ import React from "react";
 import "./Task.css";
 
 export default class Task extends React.Component {
-  state = {
-    done: false,
-  };
-
-  onTaskDoneClick = () => {
-    this.setState(({ done }) => {
-      return {
-        done: !done,
-      };
-    });
-  };
-
-
   render() {
-    const { taskName, onDeleted } = this.props;
-    const { done } = this.state;
+    const { taskName, onDeleted, onToggleDone, done } = this.props;
 
     let itemStatus = "";
 
@@ -33,9 +19,9 @@ export default class Task extends React.Component {
             className="toggle"
             type="checkbox"
             checked={done}
-            onChange={this.onTaskDoneClick}
+            onChange={onToggleDone}
           />
-          <label onClick={this.onTaskDoneClick}>
+          <label onClick={onToggleDone}>
             <span className="description">{taskName}</span>
             {/* <span className="created">created 5 minutes ago</span> */}
           </label>
