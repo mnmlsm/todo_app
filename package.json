@@ -18,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prettier": "prettier --write .",
+    "format": "prettier --write .",
     "lint": "eslint --ext .jsx,.js src/",
     "lint:fix": "eslint --fix --ext .jsx,.js src/"
   },
@@ -62,7 +62,7 @@
   "lint-staged": {
     "*.js": [
       "npm run lint:fix",
-      "prettier",
+      "format",
       "git add"
     ]
   }
