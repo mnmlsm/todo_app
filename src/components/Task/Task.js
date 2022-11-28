@@ -1,34 +1,37 @@
-import React from "react";
-
-import "./Task.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import './Task.css';
+import { formatDistanceToNow } from 'date-fns';
 
 export default class Task extends React.Component {
-  render() {
-    const { taskName, onDeleted, onToggleDone, done } = this.props;
+  static defaultProps = {};
 
-    let itemStatus = "";
+  static propProps = {
+    taskName: PropTypes.string,
+    onDeleted: PropTypes.func,
+    onToggleDone: PropTypes.func,
+    done: PropTypes.bool,
+    timeOfCreation: PropTypes.instanceOf(Date),
+  };
+
+  render() {
+    const { taskName, onDeleted, onToggleDone, done, timeOfCreation } = this.props;
+
+    let itemStatus = '';
 
     if (done) {
-      itemStatus = "completed";
-    } 
+      itemStatus = 'completed';
+    }
 
     return (
       <li className={itemStatus}>
         <div className="view">
-          <input
-            className="toggle"
-            type="checkbox"
-            checked={done}
-            onChange={onToggleDone}
-          />
+          <input className="toggle" type="checkbox" checked={done} onChange={onToggleDone} />
           <label onClick={onToggleDone}>
             <span className="description">{taskName}</span>
-            {/* <span className="created">created 5 minutes ago</span> */}
+            <span className="created">created {formatDistanceToNow(timeOfCreation, { includeSeconds: true })} ago</span>
           </label>
-          <button
-            className="icon icon-edit"
-            hidden={done}
-          ></button>
+          <button className="icon icon-edit" hidden={done}></button>
           <button
             className="icon icon-destroy"
             onClick={() => {
