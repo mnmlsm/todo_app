@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
+import PropTypes from "prop-types";
 
-import TaskList from '../TaskList';
-import Footer from '../Footer';
-import PropTypes from 'prop-types';
+import TaskList from "../TaskList";
+import Footer from "../Footer";
 export default class Main extends React.Component {
   static defaultProps = {
     todoData: [],
@@ -11,7 +11,7 @@ export default class Main extends React.Component {
     onToggleDone: () => {},
     onClearCompleted: () => {},
     onFilterChange: () => {},
-    filter: 'all',
+    filter: "all",
   };
 
   static propTypes = {
@@ -21,15 +21,27 @@ export default class Main extends React.Component {
     onToggleDone: PropTypes.func,
     onClearCompleted: PropTypes.func,
     onFilterChange: PropTypes.func,
-    filter: PropTypes.oneOf(['all', 'active', 'completed']),
+    filter: PropTypes.oneOf(["all", "active", "completed"]),
   };
 
   render() {
-    let { todoData, itemsToBeDone, deleteItem, onToggleDone, onClearCompleted, onFilterChange, filter } = this.props;
+    let {
+      todoData,
+      itemsToBeDone,
+      deleteItem,
+      onToggleDone,
+      onClearCompleted,
+      onFilterChange,
+      filter,
+    } = this.props;
 
     return (
       <section className="main">
-        <TaskList listTodos={todoData} onDeleted={deleteItem} onToggleDone={onToggleDone} />
+        <TaskList
+          listTodos={todoData}
+          onDeleted={deleteItem}
+          onToggleDone={onToggleDone}
+        />
         <Footer
           listTodos={itemsToBeDone}
           onClearCompleted={onClearCompleted}

@@ -1,10 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './Task.css';
-import { formatDistanceToNow } from 'date-fns';
+import React from "react";
+import PropTypes from "prop-types";
+import "./Task.css";
+import { formatDistanceToNow } from "date-fns";
 
 export default class Task extends React.Component {
-  static defaultProps = {};
+  static defaultProps = {
+    taskName: "",
+    onDeleted: () => {},
+  };
 
   static propProps = {
     taskName: PropTypes.string,
@@ -15,21 +18,31 @@ export default class Task extends React.Component {
   };
 
   render() {
-    const { taskName, onDeleted, onToggleDone, done, timeOfCreation } = this.props;
+    const { taskName, onDeleted, onToggleDone, done, timeOfCreation } =
+      this.props;
 
-    let itemStatus = '';
+    let itemStatus = "";
 
     if (done) {
-      itemStatus = 'completed';
+      itemStatus = "completed";
     }
 
     return (
       <li className={itemStatus}>
         <div className="view">
-          <input className="toggle" type="checkbox" checked={done} onChange={onToggleDone} />
+          <input
+            className="toggle"
+            type="checkbox"
+            checked={done}
+            onChange={onToggleDone}
+          />
           <label onClick={onToggleDone}>
             <span className="description">{taskName}</span>
-            <span className="created">created {formatDistanceToNow(timeOfCreation, { includeSeconds: true })} ago</span>
+            <span className="created">
+              created{" "}
+              {formatDistanceToNow(timeOfCreation, { includeSeconds: true })}{" "}
+              ago
+            </span>
           </label>
           <button className="icon icon-edit" hidden={done}></button>
           <button

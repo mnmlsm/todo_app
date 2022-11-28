@@ -1,16 +1,16 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-import NewTaskForm from './components/NewTaskForm';
-import Main from './components/Main';
+import NewTaskForm from "./components/NewTaskForm";
+import Main from "./components/Main";
 
 export default class App extends React.Component {
   maxId = 0;
 
   state = {
     todoData: [],
-    filter: 'all',
-    label: '',
+    filter: "all",
+    label: "",
   };
 
   createTodoItem(label, timeOfCreation) {
@@ -51,7 +51,11 @@ export default class App extends React.Component {
       const oldItem = todoData[idx];
       const newItem = { ...oldItem, done: !oldItem.done };
 
-      const newData = [...todoData.slice(0, idx), newItem, ...todoData.slice(idx + 1)];
+      const newData = [
+        ...todoData.slice(0, idx),
+        newItem,
+        ...todoData.slice(idx + 1),
+      ];
 
       return {
         todoData: newData,
@@ -76,21 +80,21 @@ export default class App extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    if (this.state.label !== '') {
+    if (this.state.label !== "") {
       this.addItem(this.state.label);
       this.setState({
-        label: '',
+        label: "",
       });
     }
   };
 
   filter = (items, filter) => {
     switch (filter) {
-      case 'all':
+      case "all":
         return items;
-      case 'active':
+      case "active":
         return items.filter((item) => !item.done);
-      case 'completed':
+      case "completed":
         return items.filter((item) => item.done);
       default:
         return items;
@@ -106,7 +110,11 @@ export default class App extends React.Component {
 
     return (
       <div className="app">
-        <NewTaskForm onLabelChange={this.onLabelChange} onSubmit={this.onSubmit} currentLabel={this.state.label} />
+        <NewTaskForm
+          onLabelChange={this.onLabelChange}
+          onSubmit={this.onSubmit}
+          currentLabel={this.state.label}
+        />
         <Main
           todoData={visibleItems}
           itemsToBeDone={this.state.todoData}

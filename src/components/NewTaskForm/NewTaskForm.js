@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './NewTaskForm.css';
+import React from "react";
+import PropTypes from "prop-types";
+import "./NewTaskForm.css";
 export default class NewTaskForm extends React.Component {
   static defaultProps = {
     onLabelChange: () => {},
     onSubmit: () => {},
-    currentLabel: 'label',
+    currentLabel: "label",
   };
 
   static propTypes = {
