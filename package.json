@@ -53,7 +53,7 @@
     "prettier": "2.8.0"
   },
   "lint-staged": {
-    "./src/**/*.js": "eslint --fix",
-    "./src/**/*.js": "prettier --write"
+    "*.js": "eslint --fix",
+    "*.js": "prettier --write"
   }
 }
