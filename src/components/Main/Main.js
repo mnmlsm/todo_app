@@ -1,8 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import TaskList from "../TaskList";
-import Footer from "../Footer";
+import TaskList from '../TaskList'
+import Footer from '../Footer'
+
 export default class Main extends React.Component {
   static defaultProps = {
     todoData: [],
@@ -11,8 +12,8 @@ export default class Main extends React.Component {
     onToggleDone: () => {},
     onClearCompleted: () => {},
     onFilterChange: () => {},
-    filter: "all",
-  };
+    filter: 'all',
+  }
 
   static propTypes = {
     todoData: PropTypes.arrayOf(PropTypes.object),
@@ -21,11 +22,11 @@ export default class Main extends React.Component {
     onToggleDone: PropTypes.func,
     onClearCompleted: PropTypes.func,
     onFilterChange: PropTypes.func,
-    filter: PropTypes.oneOf(["all", "active", "completed"]),
-  };
+    filter: PropTypes.oneOf(['all', 'active', 'completed']),
+  }
 
   render() {
-    let {
+    const {
       todoData,
       itemsToBeDone,
       deleteItem,
@@ -33,7 +34,7 @@ export default class Main extends React.Component {
       onClearCompleted,
       onFilterChange,
       filter,
-    } = this.props;
+    } = this.props
 
     return (
       <section className="main">
@@ -49,6 +50,6 @@ export default class Main extends React.Component {
           filter={filter}
         />
       </section>
-    );
+    )
   }
 }

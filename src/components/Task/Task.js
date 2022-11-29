@@ -1,13 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./Task.css";
-import { formatDistanceToNow } from "date-fns";
+import React from 'react'
+import PropTypes from 'prop-types'
+import './Task.css'
+import { formatDistanceToNow } from 'date-fns'
 
 export default class Task extends React.Component {
   static defaultProps = {
-    taskName: "",
+    taskName: '',
     onDeleted: () => {},
-  };
+  }
 
   static propProps = {
     taskName: PropTypes.string,
@@ -15,16 +15,16 @@ export default class Task extends React.Component {
     onToggleDone: PropTypes.func,
     done: PropTypes.bool,
     timeOfCreation: PropTypes.instanceOf(Date),
-  };
+  }
 
   render() {
     const { taskName, onDeleted, onToggleDone, done, timeOfCreation } =
-      this.props;
+      this.props
 
-    let itemStatus = "";
+    let itemStatus = ''
 
     if (done) {
-      itemStatus = "completed";
+      itemStatus = 'completed'
     }
 
     return (
@@ -39,23 +39,20 @@ export default class Task extends React.Component {
           <label onClick={onToggleDone}>
             <span className="description">{taskName}</span>
             <span className="created">
-              created{" "}
-              {formatDistanceToNow(timeOfCreation, { includeSeconds: true })}{" "}
+              created{' '}
+              {formatDistanceToNow(timeOfCreation, { includeSeconds: true })}{' '}
               ago
             </span>
           </label>
-          <button className="icon icon-edit" hidden={done}></button>
+          <button className="icon icon-edit" hidden={done} />
           <button
             className="icon icon-destroy"
             onClick={() => {
-              onDeleted();
+              onDeleted()
             }}
-          ></button>
+          />
         </div>
-        {/* {edit && (
-          <input type="text" className="edit" defaultValue={taskName}></input>
-        )} */}
       </li>
-    );
+    )
   }
 }

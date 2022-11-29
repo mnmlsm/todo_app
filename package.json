@@ -18,13 +18,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix ./src",
+    "format": "prettier --write --ignore-unknown ./src",
     "prepare": "husky install"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -41,6 +38,7 @@
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^8.28.0",
+    "eslint-auto-fix": "^1.0.4",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
@@ -48,12 +46,14 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "husky": "^8.0.0",
+    "husky": "^8.0.2",
     "lint-staged": "^13.0.4",
+    "patch-package": "^6.5.0",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "2.8.0"
   },
   "lint-staged": {
-    "*.js": "eslint --fix",
-    "*.js": "prettier --write"
+    "src/**/*.{js,jsx,ts,tsx}": "eslint --fix",
+    "src/**/*.{js,jsx,ts,tsx,css,scss,md}": "prettier --write --ignore-unknown"
   }
 }
