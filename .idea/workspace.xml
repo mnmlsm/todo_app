@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9420879b-2735-4a59-9df2-96b2a189bfa2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.prettierrc" beforeDir="false" afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Task/Task.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Task/Task.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +66,7 @@
       <updated>1669744698082</updated>
       <workItem from="1669744699463" duration="2458000" />
       <workItem from="1669747213200" duration="4228000" />
-      <workItem from="1669751536795" duration="453000" />
+      <workItem from="1669751536795" duration="619000" />
     </task>
     <servers />
   </component>
