@@ -27,7 +27,6 @@ export default class App extends React.Component {
       const idx = todoData.findIndex((el) => el.id === id)
 
       const newData = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)]
-      console.log(newData)
       return {
         todoData: newData,
       }

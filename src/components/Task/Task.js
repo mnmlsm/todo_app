@@ -44,7 +44,7 @@ export default class Task extends React.Component {
               ago
             </span>
           </label>
-          <button className="icon icon-edit" hidden={done} />
+          <button className="icon icon-edit" hidden={true} />
           <button
             className="icon icon-destroy"
             onClick={() => {
