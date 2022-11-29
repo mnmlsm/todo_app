@@ -26,23 +26,11 @@ export default class Main extends React.Component {
   }
 
   render() {
-    const {
-      todoData,
-      itemsToBeDone,
-      deleteItem,
-      onToggleDone,
-      onClearCompleted,
-      onFilterChange,
-      filter,
-    } = this.props
+    const { todoData, itemsToBeDone, deleteItem, onToggleDone, onClearCompleted, onFilterChange, filter } = this.props
 
     return (
       <section className="main">
-        <TaskList
-          listTodos={todoData}
-          onDeleted={deleteItem}
-          onToggleDone={onToggleDone}
-        />
+        <TaskList listTodos={todoData} onDeleted={deleteItem} onToggleDone={onToggleDone} />
         <Footer
           listTodos={itemsToBeDone}
           onClearCompleted={onClearCompleted}

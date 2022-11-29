@@ -18,8 +18,7 @@ export default class Task extends React.Component {
   }
 
   render() {
-    const { taskName, onDeleted, onToggleDone, done, timeOfCreation } =
-      this.props
+    const { taskName, onDeleted, onToggleDone, done, timeOfCreation } = this.props
 
     let itemStatus = ''
 
@@ -30,19 +29,10 @@ export default class Task extends React.Component {
     return (
       <li className={itemStatus}>
         <div className="view">
-          <input
-            className="toggle"
-            type="checkbox"
-            checked={done}
-            onChange={onToggleDone}
-          />
+          <input className="toggle" type="checkbox" checked={done} onChange={onToggleDone} />
           <label onClick={onToggleDone}>
             <span className="description">{taskName}</span>
-            <span className="created">
-              created{' '}
-              {formatDistanceToNow(timeOfCreation, { includeSeconds: true })}{' '}
-              ago
-            </span>
+            <span className="created">created {formatDistanceToNow(timeOfCreation, { includeSeconds: true })} ago</span>
           </label>
           <button className="icon icon-edit" hidden={true} />
           <button

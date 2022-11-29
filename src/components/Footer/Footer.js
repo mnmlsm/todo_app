@@ -22,8 +22,7 @@ export default class Footer extends React.Component {
   render() {
     const { listTodos, onClearCompleted, onFilterChange, filter } = this.props
 
-    const leftTaskCount =
-      listTodos.length - listTodos.filter((el) => el.done).length
+    const leftTaskCount = listTodos.length - listTodos.filter((el) => el.done).length
 
     return (
       <footer className="footer">

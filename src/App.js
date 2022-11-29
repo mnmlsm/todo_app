@@ -50,11 +50,7 @@ export default class App extends React.Component {
       const oldItem = todoData[idx]
       const newItem = { ...oldItem, done: !oldItem.done }
 
-      const newData = [
-        ...todoData.slice(0, idx),
-        newItem,
-        ...todoData.slice(idx + 1),
-      ]
+      const newData = [...todoData.slice(0, idx), newItem, ...todoData.slice(idx + 1)]
 
       return {
         todoData: newData,
@@ -109,11 +105,7 @@ export default class App extends React.Component {
 
     return (
       <div className="app">
-        <NewTaskForm
-          onLabelChange={this.onLabelChange}
-          onSubmit={this.onSubmit}
-          currentLabel={this.state.label}
-        />
+        <NewTaskForm onLabelChange={this.onLabelChange} onSubmit={this.onSubmit} currentLabel={this.state.label} />
         <Main
           todoData={visibleItems}
           itemsToBeDone={this.state.todoData}
