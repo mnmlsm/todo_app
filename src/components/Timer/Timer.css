@@ -1,0 +1,36 @@
+.todo-list .view .timer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 24px;
+  width: 80px;
+  margin: 0 16px;
+}
+.todo-list .view .timer > button {
+  position: relative;
+}
+
+.todo-list li label .timer {
+  font-size: 13px;
+  color: gray;
+}
+
+.todo-list .view .timer .icon-pause,
+.todo-list .view .timer .icon-play {
+  font-size: 18px;
+  width: 24px;
+  height: 18px;
+}
+
+.todo-list .view .timer .icon-play,
+.todo-list .view .timer .icon-pause {
+  font-size: 15px;
+}
+
+.todo-list .view .timer .icon-pause:after {
+  content: '⏸';
+  margin-right: 16px;
+}
+.todo-list .view .timer .icon-play:after {
+  content: '▶';
+}

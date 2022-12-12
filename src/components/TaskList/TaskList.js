@@ -18,7 +18,7 @@ export default class TaskList extends React.Component {
   }
 
   render() {
-    const { listTodos, onDeleted, onToggleDone } = this.props
+    const { listTodos, onDeleted, onToggleDone, timer } = this.props
     const tasks = listTodos.map((task) => (
       <Task
         taskName={task.label}
@@ -31,6 +31,7 @@ export default class TaskList extends React.Component {
           onToggleDone(task.id)
         }}
         done={task.done}
+        timer={timer}
       />
     ))
     return <ul className="todo-list">{tasks}</ul>

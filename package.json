@@ -46,6 +46,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "hacktimer": "^1.1.3",
     "husky": "^8.0.2",
     "lint-staged": "^13.0.4",
     "patch-package": "^6.5.0",

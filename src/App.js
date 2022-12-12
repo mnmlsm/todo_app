@@ -11,6 +11,10 @@ export default class App extends React.Component {
     todoData: [],
     filter: 'all',
     label: '',
+    timer: {
+      minutes: 0,
+      seconds: 0,
+    },
   }
 
   createTodoItem(label, timeOfCreation) {
@@ -73,12 +77,16 @@ export default class App extends React.Component {
     })
   }
 
-  onSubmit = (e) => {
+  onSubmit = (e, minutes, seconds) => {
     e.preventDefault()
     if (this.state.label !== '') {
       this.addItem(this.state.label)
       this.setState({
         label: '',
+        timer: {
+          minutes: minutes < 10 ? '0' + minutes : minutes,
+          seconds: seconds < 10 ? '0' + seconds : seconds,
+        },
       })
     }
   }
@@ -101,19 +109,22 @@ export default class App extends React.Component {
   }
 
   render() {
-    const visibleItems = this.filter(this.state.todoData, this.state.filter)
+    const { todoData, filter, timer } = this.state
+
+    const visibleItems = this.filter(todoData, filter)
 
     return (
       <div className="app">
         <NewTaskForm onLabelChange={this.onLabelChange} onSubmit={this.onSubmit} currentLabel={this.state.label} />
         <Main
           todoData={visibleItems}
-          itemsToBeDone={this.state.todoData}
+          itemsToBeDone={todoData}
           deleteItem={this.deleteItem}
           onToggleDone={this.onToggleDone}
           onClearCompleted={this.deleteCompletedTasks}
           onFilterChange={this.onFilterChange}
-          filter={this.state.filter}
+          filter={filter}
+          timer={timer}
         />
       </div>
     )
