@@ -1,42 +1,35 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import './Timer.css'
 
-export default class Timer extends React.Component {
-  state = {
-    minutes: 0,
-    seconds: 0,
-  }
+const Timer = ({ timer }) => {
+  const [countdownTimer, setCountdownTimer] = useState({ seconds: timer.seconds, minutes: timer.minutes })
+  const [timerState, setTimerState] = useState('pause')
+  const [isRunningTimer, setTimerRun] = useState(false)
+  const setTimeoutId = useRef(null)
 
-  setTimeoutId = null
+  useEffect(() => {
+    return () => clearInterval(setTimeoutId.current)
+  })
 
-  componentDidMount = () => {
-    this.setState(() => {
-      return {
-        minutes: this.props.timer.minutes,
-        seconds: this.props.timer.seconds,
-      }
-    })
-  }
-  componentDidUpdate = (prevProp, prevState) => {
-    if (prevState !== this.state) {
-      this.props.onDeleteTask(this.setTimeoutId)
-    }
-  }
-  handleTimer = (timerState) => {
+  useEffect(() => {
+    updateTimer()
+  })
+
+  const updateTimer = () => {
     if (timerState === 'start') {
-      this.setTimeoutId = setInterval(() => {
-        const { seconds, minutes } = this.state
-        if (seconds > 0) {
-          this.setState(({ seconds }) => ({
+      setTimeoutId.current = setInterval(() => {
+        if (countdownTimer.seconds > 0) {
+          setCountdownTimer(({ seconds, minutes }) => ({
             seconds: seconds <= 10 ? `0${seconds - 1}` : `${seconds - 1}`,
+            minutes: minutes,
           }))
         }
-        if (seconds === '00') {
-          if (minutes === '00') {
-            clearInterval(this.setTimeoutId)
+        if (countdownTimer.seconds === '00') {
+          if (countdownTimer.minutes === '00') {
+            clearInterval(setTimeoutId.current)
           } else {
-            this.setState(({ minutes }) => ({
+            setCountdownTimer(({ minutes }) => ({
               minutes: minutes <= 10 ? `0${minutes - 1}` : `${minutes - 1}`,
               seconds: 59,
             }))
@@ -44,28 +37,29 @@ export default class Timer extends React.Component {
         }
       }, 1000)
     } else if (timerState === 'pause') {
-      clearTimeout(this.setTimeoutId)
+      clearTimeout(setTimeoutId.current)
     }
   }
-  render() {
-    const { minutes, seconds } = this.state
-
-    return (
-      <span className="timer">
-        <button
-          className="icon icon-play"
-          onClick={() => {
-            this.handleTimer('start')
-          }}
-        ></button>
-        <button
-          className="icon icon-pause"
-          onClick={() => {
-            this.handleTimer('pause')
-          }}
-        ></button>
-        {`${minutes}:${seconds}`}
-      </span>
-    )
-  }
+  return (
+    <span className="timer">
+      <button
+        disabled={isRunningTimer}
+        className="icon icon-play"
+        onClick={() => {
+          setTimerState('start')
+          setTimerRun(true)
+        }}
+      ></button>
+      <button
+        disabled={!isRunningTimer}
+        className="icon icon-pause"
+        onClick={() => {
+          setTimerState('pause')
+          setTimerRun(false)
+        }}
+      ></button>
+      {`${countdownTimer.minutes}:${countdownTimer.seconds}`}
+    </span>
+  )
 }
+export default Timer

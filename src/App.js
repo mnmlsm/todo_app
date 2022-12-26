@@ -1,97 +1,70 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css'
 
 import NewTaskForm from './components/NewTaskForm'
 import Main from './components/Main'
 
-export default class App extends React.Component {
-  maxId = 0
+const App = (props) => {
+  const [todoData, setTodoData] = useState([])
+  const [filter, setFilter] = useState('all')
+  const [label, setLabel] = useState('')
+  const [timer, setTimer] = useState({ minutes: 0, seconds: 0 })
 
-  state = {
-    todoData: [],
-    filter: 'all',
-    label: '',
-    timer: {
-      minutes: 0,
-      seconds: 0,
-    },
-  }
-
-  createTodoItem(label, timeOfCreation) {
+  const createTodoItem = (label, timeOfCreation) => {
     return {
       label,
-      id: this.maxId++,
+      id: label + timeOfCreation,
       done: false,
       timeOfCreation,
     }
   }
 
-  deleteItem = (id) => {
-    this.setState(({ todoData }) => {
-      const idx = todoData.findIndex((el) => el.id === id)
-
-      const newData = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)]
-      return {
-        todoData: newData,
-      }
+  const deleteItem = (id) => {
+    setTodoData((oldTodoData) => {
+      const idx = oldTodoData.findIndex((el) => el.id === id)
+      return [...oldTodoData.slice(0, idx), ...oldTodoData.slice(idx + 1)]
     })
   }
 
-  addItem = (label) => {
-    this.setState(({ todoData }) => {
-      const newItemToAdd = this.createTodoItem(label, new Date())
-      const newDataToAdd = [newItemToAdd, ...todoData]
-
-      return {
-        todoData: newDataToAdd,
-      }
+  const addItem = (label) => {
+    setTodoData((oldTodoData) => {
+      const newItemToAdd = createTodoItem(label, new Date())
+      return [newItemToAdd, ...oldTodoData]
     })
   }
 
-  onToggleDone = (id) => {
-    this.setState(({ todoData }) => {
-      const idx = todoData.findIndex((el) => el.id === id)
-      const oldItem = todoData[idx]
+  const onToggleDone = (id) => {
+    setTodoData((oldTodoData) => {
+      const idx = oldTodoData.findIndex((el) => el.id === id)
+      const oldItem = oldTodoData[idx]
       const newItem = { ...oldItem, done: !oldItem.done }
-
-      const newData = [...todoData.slice(0, idx), newItem, ...todoData.slice(idx + 1)]
-
-      return {
-        todoData: newData,
-      }
+      return [...oldTodoData.slice(0, idx), newItem, ...oldTodoData.slice(idx + 1)]
     })
   }
 
-  deleteCompletedTasks = () => {
-    this.setState(({ todoData }) => {
-      const newData = todoData.filter((el) => !el.done)
-      return {
-        todoData: newData,
-      }
+  const deleteCompletedTasks = () => {
+    setTodoData((oldTodoData) => {
+      return oldTodoData.filter((el) => !el.done)
     })
   }
 
-  onLabelChange = (label) => {
-    this.setState({
-      label,
-    })
+  const onLabelChange = (label) => {
+    setLabel(label)
   }
 
-  onSubmit = (e, minutes, seconds) => {
+  const onSubmit = (e, minutes, seconds) => {
     e.preventDefault()
-    if (this.state.label !== '') {
-      this.addItem(this.state.label)
-      this.setState({
-        label: '',
-        timer: {
-          minutes: minutes < 10 ? '0' + minutes : minutes,
-          seconds: seconds < 10 ? '0' + seconds : seconds,
-        },
+    if (label !== '') {
+      addItem(label)
+      setLabel('')
+      setTimer({
+        minutes: minutes < 10 ? '0' + minutes : minutes,
+        seconds: seconds < 10 ? '0' + seconds : seconds,
       })
     }
   }
 
-  filter = (items, filter) => {
+  const filterToShow = (items, filter) => {
     switch (filter) {
       case 'all':
         return items
@@ -104,29 +77,25 @@ export default class App extends React.Component {
     }
   }
 
-  onFilterChange = (filter) => {
-    this.setState({ filter })
+  const onFilterChange = (filter) => {
+    setFilter(filter)
   }
 
-  render() {
-    const { todoData, filter, timer } = this.state
-
-    const visibleItems = this.filter(todoData, filter)
-
-    return (
-      <div className="app">
-        <NewTaskForm onLabelChange={this.onLabelChange} onSubmit={this.onSubmit} currentLabel={this.state.label} />
-        <Main
-          todoData={visibleItems}
-          itemsToBeDone={todoData}
-          deleteItem={this.deleteItem}
-          onToggleDone={this.onToggleDone}
-          onClearCompleted={this.deleteCompletedTasks}
-          onFilterChange={this.onFilterChange}
-          filter={filter}
-          timer={timer}
-        />
-      </div>
-    )
-  }
+  const visibleItems = filterToShow(todoData, filter)
+  return (
+    <div className="app">
+      <NewTaskForm onLabelChange={onLabelChange} onSubmit={onSubmit} currentLabel={label} />
+      <Main
+        todoData={visibleItems}
+        itemsToBeDone={todoData}
+        deleteItem={deleteItem}
+        onToggleDone={onToggleDone}
+        onClearCompleted={deleteCompletedTasks}
+        onFilterChange={onFilterChange}
+        filter={filter}
+        timer={timer}
+      />
+    </div>
+  )
 }
+export default App
